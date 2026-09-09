@@ -1,211 +1,146 @@
 <!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#1f5f8b" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#1f5f8b">
+  <meta name="description" content="THT Customer Experience Survey">
   <title>THT Customer Experience Survey</title>
+
+  <link rel="preload" as="image" href="assets/hero.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/logo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="app-shell">
+  <main class="page-shell">
     <header class="topbar">
-      <a class="brand" href="#" aria-label="Tran Hiep Thanh">
-        <div class="logo-slot editable-image" id="logoSlot" data-image-key="logoImage">
-          <img src="assets/logo.png" alt="THT logo" id="brandLogo" />
-          <div class="logo-fallback">THT</div>
-          <button class="image-edit-btn" type="button" data-replace-image="logoImage">Thay logo</button>
+      <div class="brand">
+        <img src="assets/logo.jpg" alt="THT logo" class="brand-logo" width="64" height="64">
+        <div>
+          <strong id="brandName"></strong>
+          <span id="brandSubtitle"></span>
         </div>
-        <div class="brand-copy">
-          <strong data-content-key="brandName">TRẦN HIỆP THÀNH</strong>
-          <span data-content-key="brandSubtitle">Khảo sát trải nghiệm khách hàng</span>
-        </div>
-      </a>
-
-      <div class="topbar-actions">
-        <div class="language-switch" aria-label="Language">
-          <button type="button" class="lang-btn active" data-lang="vi">VI</button>
-          <button type="button" class="lang-btn" data-lang="en">EN</button>
-        </div>
-        <button type="button" class="edit-entry" id="editEntry" aria-label="Edit content">Edit</button>
+      </div>
+      <div class="lang-switch" aria-label="Language">
+        <button class="lang-btn active" data-lang="vi" type="button">VI</button>
+        <button class="lang-btn" data-lang="en" type="button">EN</button>
       </div>
     </header>
 
-    <main>
-      <section class="hero">
-        <div class="hero-content">
-          <span class="eyebrow" data-content-key="heroEyebrow">Customer Experience 2026</span>
-          <h1 data-content-key="heroTitle">Phản hồi của Quý khách giúp chúng tôi làm tốt hơn.</h1>
-          <p data-content-key="heroBody">Khảo sát mất khoảng 3 phút. Mỗi phản hồi sẽ được dùng để xác định nội dung cần cải thiện trong sản phẩm, dịch vụ và quá trình phối hợp.</p>
-          <div class="hero-points">
-            <span data-content-key="heroPoint1">Khoảng 3 phút</span>
-            <span data-content-key="heroPoint2">Dữ liệu phục vụ cải tiến</span>
-            <span data-content-key="heroPoint3">Không cần đăng nhập</span>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow" id="heroEyebrow"></span>
+        <h1 id="heroTitle"></h1>
+        <p id="heroBody"></p>
+        <div class="values">
+          <span id="heroPoint1"></span>
+          <span id="heroPoint2"></span>
+          <span id="heroPoint3"></span>
+        </div>
+      </div>
+      <div class="hero-image-wrap">
+        <img src="assets/hero.jpg" alt="" class="hero-image" fetchpriority="high" decoding="async">
+      </div>
+    </section>
+
+    <section class="survey-shell">
+      <div class="survey-head">
+        <div>
+          <span class="section-kicker" id="stepKicker"></span>
+          <h2 id="sectionTitle"></h2>
+        </div>
+        <div class="progress-copy" id="progressCopy">1 / 5</div>
+      </div>
+      <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+
+      <div id="statusBox" class="status-box hidden"></div>
+
+      <section class="step active" data-step="1">
+        <div class="card">
+          <label class="label" id="companyLabel"></label>
+          <div class="search-wrap">
+            <input id="companySearch" autocomplete="off" type="text">
+            <div id="companyResults" class="search-results hidden"></div>
+          </div>
+          <div id="companyConfirm" class="company-confirm hidden">
+            <span id="confirmCompany"></span>
+            <strong id="selectedCompanyName"></strong>
+            <button type="button" id="changeCompany" class="text-btn"></button>
+          </div>
+
+          <div class="field-block">
+            <label class="label" id="roleLabel"></label>
+            <div id="roleGrid" class="option-grid"></div>
           </div>
         </div>
-        <div class="hero-visual editable-image" id="heroVisual" data-image-key="heroImage">
-          <img src="assets/hero.jpg" alt="Fabric visual" id="heroImage" />
-          <div class="hero-placeholder">
-            <div class="texture-orb"></div>
-            <div class="placeholder-copy">
-              <small>HERO IMAGE</small>
-              <strong>Thêm ảnh trực quan</strong>
-            </div>
-          </div>
-          <button class="image-edit-btn" type="button" data-replace-image="heroImage">Thay ảnh</button>
+
+        <div class="nav-row end">
+          <button type="button" class="btn primary" data-next="2" id="startQuestions">Tiếp tục</button>
         </div>
       </section>
 
-      <section class="survey-wrap" id="surveySection">
-        <div class="progress-head">
-          <div>
-            <span class="progress-kicker" id="stepLabel">Bắt đầu</span>
-            <h2 id="sectionTitle">Thông tin khảo sát</h2>
-          </div>
-          <div class="progress-count" id="progressCount">1 / 5</div>
+      <section class="step" data-step="2">
+        <div id="questionsContainer"></div>
+        <div class="nav-row">
+          <button type="button" class="btn secondary" data-prev="1">Quay lại</button>
+          <button type="button" class="btn primary" data-next="3">Tiếp tục</button>
         </div>
-        <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
-
-        <form id="surveyForm" novalidate>
-          <section class="step active" data-step="1">
-            <div class="card intro-card">
-              <label class="field-label" for="customerSearch" data-content-key="companyLabel">Tên công ty</label>
-              <div class="search-wrap">
-                <input id="customerSearch" type="search" autocomplete="off" data-content-placeholder-key="companyPlaceholder" placeholder="Nhập tên công ty..." />
-                <div class="search-results" id="customerResults" hidden></div>
-              </div>
-              <div class="selected-company" id="selectedCompany" hidden>
-                <span data-content-key="confirmCompany">Quý khách đang gửi phản hồi cho</span>
-                <strong id="selectedCompanyName"></strong>
-                <button type="button" class="text-btn" id="changeCompany" data-content-key="change">Thay đổi</button>
-              </div>
-
-              <label class="field-label top-gap" data-content-key="roleLabel">Bộ phận / vai trò</label>
-              <div class="role-grid" id="roleGrid"></div>
-              <div class="form-message" id="step1Message"></div>
-            </div>
-          </section>
-
-          <section class="step" data-step="2">
-            <div class="questions" id="questionList"></div>
-            <div class="form-message" id="step2Message"></div>
-          </section>
-
-          <section class="step" data-step="3">
-            <div class="card overall-card">
-              <span class="section-chip" data-content-key="overallChip">Đánh giá chung</span>
-              <h3 data-content-key="overallQuestion">Nhìn chung, Quý khách hài lòng với sản phẩm, dịch vụ và quá trình hợp tác với THT ở mức nào?</h3>
-              <div class="rating-row" id="overallRating"></div>
-            </div>
-            <div class="form-message" id="step3Message"></div>
-          </section>
-
-          <section class="step" data-step="4">
-            <div class="card">
-              <span class="section-chip" data-content-key="priorityChip">Điều quan trọng với Quý khách</span>
-              <h3 data-content-key="priorityQuestion">Chọn tối đa 3 yếu tố quan trọng nhất khi làm việc với nhà cung cấp vải.</h3>
-              <p class="muted" id="priorityCounter">0 / 3</p>
-              <div class="priority-grid" id="priorityGrid"></div>
-            </div>
-            <div class="form-message" id="step4Message"></div>
-          </section>
-
-          <section class="step" data-step="5">
-            <div class="card final-card">
-              <span class="section-chip" data-content-key="finalChip">Một góp ý cuối</span>
-              <h3 data-content-key="finalQuestion">Nếu THT chỉ có thể cải thiện một điều trong 6 tháng tới, Quý khách mong muốn đó là gì?</h3>
-              <textarea id="improvementComment" rows="6" maxlength="1200" data-content-placeholder-key="finalPlaceholder" placeholder="Quý khách có thể chia sẻ ngắn gọn tại đây..."></textarea>
-              <p class="muted" data-content-key="optional">Không bắt buộc</p>
-            </div>
-          </section>
-
-          <div class="form-actions">
-            <button type="button" class="btn secondary" id="backBtn">Quay lại</button>
-            <button type="button" class="btn primary" id="nextBtn">Tiếp tục</button>
-            <button type="submit" class="btn primary" id="submitBtn" hidden>Gửi phản hồi</button>
-          </div>
-        </form>
       </section>
 
-      <section class="thank-you" id="thankYou" hidden>
-        <div class="thank-icon">✓</div>
-        <span class="eyebrow" data-content-key="thanksEyebrow">Đã ghi nhận</span>
-        <h2 data-content-key="thanksTitle">Cảm ơn Quý khách.</h2>
-        <p data-content-key="thanksBody">Phản hồi đã được gửi thành công. THT sẽ sử dụng dữ liệu này để xác định các nội dung cần cải thiện trong thời gian tới.</p>
+      <section class="step" data-step="3">
+        <div class="card">
+          <span class="section-chip" id="overallChip"></span>
+          <h3 id="overallQuestion"></h3>
+          <div id="overallScale" class="rating-grid"></div>
+        </div>
+        <div class="nav-row">
+          <button type="button" class="btn secondary" data-prev="2">Quay lại</button>
+          <button type="button" class="btn primary" data-next="4">Tiếp tục</button>
+        </div>
       </section>
-    </main>
+
+      <section class="step" data-step="4">
+        <div class="card">
+          <span class="section-chip" id="priorityChip"></span>
+          <h3 id="priorityQuestion"></h3>
+          <div id="priorityGrid" class="priority-grid"></div>
+          <p class="selection-count" id="priorityCount">0 / 3</p>
+        </div>
+        <div class="nav-row">
+          <button type="button" class="btn secondary" data-prev="3">Quay lại</button>
+          <button type="button" class="btn primary" data-next="5">Tiếp tục</button>
+        </div>
+      </section>
+
+      <section class="step" data-step="5">
+        <div class="card">
+          <span class="section-chip" id="finalChip"></span>
+          <h3 id="finalQuestion"></h3>
+          <textarea id="finalComment" rows="6"></textarea>
+          <span class="optional" id="optional"></span>
+        </div>
+        <div class="nav-row">
+          <button type="button" class="btn secondary" data-prev="4">Quay lại</button>
+          <button type="button" class="btn primary" id="submitBtn">Gửi phản hồi</button>
+        </div>
+      </section>
+
+      <section class="thank-you hidden" id="thankYou">
+        <span class="section-kicker" id="thanksEyebrow"></span>
+        <h2 id="thanksTitle"></h2>
+        <p id="thanksBody"></p>
+      </section>
+    </section>
 
     <footer>
       <span>© Tran Hiep Thanh Textile Corporation</span>
-      <span class="footer-note" data-content-key="footerNote">Customer Experience Survey</span>
+      <span id="footerNote"></span>
     </footer>
-  </div>
-
-  <div class="admin-toolbar" id="adminToolbar" hidden>
-    <div><strong>Chế độ chỉnh sửa</strong><span id="saveStatus">Chưa có thay đổi</span></div>
-    <div class="admin-toolbar-actions">
-      <button type="button" class="btn secondary compact" id="backupBtn">5 bản gần nhất</button>
-      <button type="button" class="btn secondary compact" id="exitEditBtn">Thoát</button>
-      <button type="button" class="btn primary compact" id="saveContentBtn">Lưu thay đổi</button>
-    </div>
-  </div>
-
-  <div class="modal-backdrop" id="pinModal" hidden>
-    <div class="modal-card small-modal">
-      <button class="modal-close" type="button" data-close-modal="pinModal">×</button>
-      <span class="modal-kicker">Edit Mode</span>
-      <h3>Nhập PIN</h3>
-      <p>Chế độ này dùng để chỉnh nội dung và hình ảnh trên web.</p>
-      <input id="pinInput" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN" maxlength="12" />
-      <div class="modal-error" id="pinError"></div>
-      <button type="button" class="btn primary full" id="verifyPinBtn">Mở chế độ chỉnh sửa</button>
-    </div>
-  </div>
-
-  <div class="modal-backdrop" id="textEditorModal" hidden>
-    <div class="modal-card editor-modal">
-      <button class="modal-close" type="button" data-close-modal="textEditorModal">×</button>
-      <span class="modal-kicker">Nội dung</span>
-      <h3 id="editorTitle">Chỉnh sửa nội dung</h3>
-      <label>Tiếng Việt</label>
-      <textarea id="editorVi" rows="5"></textarea>
-      <label>English</label>
-      <textarea id="editorEn" rows="5"></textarea>
-      <div class="modal-actions">
-        <button type="button" class="btn secondary" data-close-modal="textEditorModal">Hủy</button>
-        <button type="button" class="btn primary" id="applyTextEditBtn">Áp dụng</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal-backdrop" id="imageModal" hidden>
-    <div class="modal-card editor-modal">
-      <button class="modal-close" type="button" data-close-modal="imageModal">×</button>
-      <span class="modal-kicker">Hình ảnh</span>
-      <h3 id="imageModalTitle">Thay hình ảnh</h3>
-      <div class="image-upload-zone">
-        <input type="file" id="imageFile" accept="image/png,image/jpeg,image/webp,image/gif" />
-        <p>PNG, JPG, WEBP hoặc GIF. Tối đa 6 MB.</p>
-      </div>
-      <div class="modal-error" id="imageError"></div>
-      <div class="modal-actions">
-        <button type="button" class="btn secondary" data-close-modal="imageModal">Hủy</button>
-        <button type="button" class="btn primary" id="uploadImageBtn">Tải lên Google Drive</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal-backdrop" id="backupModal" hidden>
-    <div class="modal-card editor-modal">
-      <button class="modal-close" type="button" data-close-modal="backupModal">×</button>
-      <span class="modal-kicker">Backup</span>
-      <h3>5 phiên bản gần nhất</h3>
-      <div class="backup-list" id="backupList"></div>
-    </div>
-  </div>
+  </main>
 
   <script src="app.js"></script>
 </body>
